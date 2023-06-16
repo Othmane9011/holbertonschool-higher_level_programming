@@ -1,11 +1,18 @@
 #!/usr/bin/python3
 def text_indentation(text):
-	'''Write a function that prints a text with 2 new lines \
-	after each of these characters: ., ? and :'''
-	if type(text) == str:
-		text = text.replace('. ', '.\n\n')
-		text = text.replace('? ', '?\n\n')
-		text = text.replace(': ', ':\n\n')
-		print(text)
-	else:
-		raise TypeError('text must be a string')
+    if not isinstance(text, str):
+        raise TypeError('text must be a string')
+    ponctuation = [".", "?", ":"]
+
+    new_text = ""
+    line = ""
+    for i in text:
+        line += i
+        if i in punctuation:
+            new_text += line.strip() + "\n\n"
+            line = ""
+
+    if line:
+        new_text += line.strip()
+
+    print(new_text)
