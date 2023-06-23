@@ -1,22 +1,9 @@
 #!/usr/bin/python3
-""" import all module """
-import sys
 
 
-save = __import__('5-save_to_json_file').save_to_json_file
-load = __import__('6-load_from_json_file').load_from_json_file
+import json
 
 
-def lists(argument):
-    """ add argument"""
-    try:
-        value = load("add_item.json")
-    except FileNotFoundError:
-        value = []
-
-    value += argument
-    save(value, "add_item.json")
-
-
-argument = sys.argv[1:]
-lists(argument)
+def save_to_json_file(my_obj, filename):
+    with open(filename, "w", encoding="UTF-8") as f:
+        json.dump(my_obj, f)
