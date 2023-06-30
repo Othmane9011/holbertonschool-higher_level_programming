@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""Define the base of all other classes"""
+"""import module"""
 
-from json import dumps, loads
+
 import json
 
 
@@ -14,7 +14,7 @@ class Base:
             self.id = id
         else:
             Base.__nb_objects += 1
-            self.id = Base
+            self.id = Base.__nb_objects
 
     @staticmethod
     def to_json_string(list_dictionaries):
