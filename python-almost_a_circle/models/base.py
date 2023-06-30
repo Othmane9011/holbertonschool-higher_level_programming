@@ -6,11 +6,10 @@ import json
 
 
 class Base:
-    """Base model"""
+    """define class"""
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """Init new base"""
         if id is not None:
             self.id = id
         else:
@@ -19,25 +18,26 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """Return the JSON serialization of a list of dicts."""
-        if list_dictionaries is None or list_dictionaries == []:
+        """def list of dict"""
+        if list_dictionaries is None or list_dictionaries == 0:
             return "[]"
-        return json.dumps(list_dictionaries)
+        else:
+            json_format = json.dumps(list_dictionaries)
+            return json_format
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """Write the JSON serialization of a list of objects to a file."""
-        if list_objs is None:
-            list_objs = []
-
+        """ save file """
         filename = cls.__name__ + ".json"
-        json_string = cls.to_json_string([obj.to_dictionary()
-                                         for obj in list_objs])
-
-        with open(filename, "w") as file:
-            file.write(json_string)
+        list_of_obj = []
+        if list_objs is not None:
+            for obj in list_objs:
+                list_of_obj.append(obj.to_dictionary())
+        with open(filename, "w", encoding="UTF-8") as file:
+            file.write(cls.to_json_string(list_of_obj))
 
     @staticmethod
+    def from_json_string(json_string):
         """ from json """
         if json_string is None or json_string == []:
             return []
