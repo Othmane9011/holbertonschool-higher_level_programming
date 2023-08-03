@@ -1,32 +1,17 @@
 #!/usr/bin/python3
-"""
-This file prints all states from the database
-"""
+""" script that lists all states from the database hbtn_0e_0_usa """
 
-import sys
 import MySQLdb
+import sys
 
 
-def main():
-    """
-    This file use a mysql search from python
-    """
-    db_user = sys.argv[1]
-    db_password = sys.argv[2]
-    db_name = sys.argv[3]
-
-    # Open database connection
-    db = MySQLdb.connect(host="localhost", port=3306,
-                         user=db_user, passwd=db_password, db=db_name)
-    cursor = db.cursor()
-    # Use all the SQL you like
-    cursor.execute("SELECT * FROM states order by states.id")
-    data = cursor.fetchall()
-
-    for states in data:
-        print(states)
-    cursor.close()
-    db.close()
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    conn = MySQLdb.connect(host="localhost", port=3306, user=sys.argv[1],
+                           passwd=sys.argv[2], db=sys.argv[3])
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
+    cur.close()
+    conn.close()
